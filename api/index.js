@@ -1,12 +1,21 @@
 const express = require('express')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 
 const app = express();
-app.use(cors())
+app.use(express.json())
+app.use(cookieParser())
+// app.use(cors({ origin: '*', credentials: true }));
+app.use(cors());
 
-const authRoutes = require('./routes/auth.route')
+const dbConnection = require('./utils/db.connection');
+dbConnection()
 
-app.use('/auth', authRoutes)
+const authRoutes = require('./routes/auth.route');
+const productRoutes = require('./routes/product.route');
 
-app.listen(300, () => console.log("Server running"))
+app.use('/api/auth', authRoutes)
+app.use('/api/product', productRoutes)
+
+app.listen(process.env.PORT, () => console.log("Server running"))
