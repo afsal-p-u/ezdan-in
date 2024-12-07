@@ -25,7 +25,7 @@ const SignIn = async (req, res) => {
         
         return res.cookie("token", accessToken, {
             httpOnly: true,
-            // secure: true,
+            secure: process.env.SECURE,
             maxAge: age
         }).status(200).json(accessToken)
     } catch (err) {
@@ -62,7 +62,7 @@ const SignUp = async (req, res) => {
 
         return res.cookie("token", accessToken, {
             httpOnly: true,
-            // secure: true,
+            secure: process.env.SECURE,
             maxAge: age
         }).status(200).json(accessToken)
 

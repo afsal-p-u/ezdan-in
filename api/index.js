@@ -6,8 +6,7 @@ require('dotenv').config()
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
-// app.use(cors({ origin: '*', credentials: true }));
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 const dbConnection = require('./utils/db.connection');
 dbConnection()

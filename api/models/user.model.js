@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
     cart: { 
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
         default: [] 
-    }
+    } 
 })
-
+ 
 module.exports = mongoose.model("user", UserSchema)
