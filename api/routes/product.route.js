@@ -3,6 +3,6 @@ const { addNewProduct, getAllProducts, getProduct } = require('../controllers/pr
 
 router.post('/new', addNewProduct)
 router.get('/', getAllProducts)
-router.get('/:id', getProduct)
+router.get('/:id', getProduct) 
 
-module.exports = router
+module.exports = router 

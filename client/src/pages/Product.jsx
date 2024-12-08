@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import apiRequest from "../lib/apiRequest";
+import { useCartContext } from "../contexts/CartContext";
 
 const Product = () => {
   const [data, setData] = useState();
@@ -9,16 +10,21 @@ const Product = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, _setQuantity] = useState(1);
 
-  
+  const { cart, setCart, removeCartItem } = useCartContext();
+
   const setQuantity = (value) => {
     if (value == "add") {
       if (quantity < 5) {
         _setQuantity(quantity + 1);
+      } else {
+        setQuantity(5);
       }
     }
     if (value == "remove") {
       if (quantity != 1) {
         _setQuantity(quantity - 1);
+      } else {
+        setQuantity(1);
       }
     }
   };
@@ -34,6 +40,20 @@ const Product = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleCart = () => {
+    const { colors, sizes, ...rest } = data;
+
+    if (selectedColor != null && selectedSize != null) {
+      setCart({
+        ...rest,
+        quantity: quantity,
+        color: selectedColor,
+        size: selectedSize,
+        id: selectedSize + selectedSize + data._id,
+      });
+    }
   };
 
   useEffect(() => {
@@ -115,7 +135,10 @@ const Product = () => {
             </div>
           </div>
 
-          <button className="mt-5 px-7 py-2 text-sm font-medium bg-[--third] text-white cursor-pointer rounded-md">
+          <button
+            className="mt-5 px-7 py-2 text-sm font-medium bg-[--third] text-white cursor-pointer rounded-md"
+            onClick={() => handleCart()}
+          >
             Add to cart
           </button>
         </div>

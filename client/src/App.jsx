@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Cart, Checkout, Home, Product, Products } from "./pages";
+import { Cart, Checkout, Home, Product, Products, TermsAndConditions } from "./pages";
 import { Footer, Navbar, SignIn, SignUp } from "./components";
 import { useAuthContext } from "./contexts/AuthContext";
 
@@ -16,6 +16,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/terms&conditions" element={<TermsAndConditions />} />
       </Routes>
       <Footer />
 
