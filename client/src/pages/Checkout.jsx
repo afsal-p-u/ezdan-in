@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { load } from "@cashfreepayments/cashfree-js";
 import apiRequest from "../lib/apiRequest";
 
 const Checkout = () => {
   const [data, setData] = useState(null);
-  const [session, setSession] = useState("session_JCSpADO8spuQwoDJb8KtH2BpToeU4wtw5uCYxKcnpXcYLBDlVO8p89iuqVo4daye15UtND4tS2Qs2NB7v4k462DUSOGcdwb6D7qY0bqZKApc_9qBeTJxlNwpayment");
+  const [session, setSession] = useState(null);
 
   const setDatas = (e) => {
     setData(() => {
@@ -16,7 +16,7 @@ const Checkout = () => {
     e.preventDefault();
 
     apiRequest
-      .post("/payment/pay", { ...data, amount: 150.0 })
+      .post("/payment/create", { ...data, amount: 150.0 })
       .then((res) => {
         setSession(res.data.payment_session_id);
       })
@@ -42,12 +42,12 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-[100vh] py-5 px-[100px] bg-[--secondary] w-full flex">
-      <div className="bg-[--primary] flex w-full  px-5 py-5 rounded-md shadow-sm gap-10">
-        <div className="basis-2/4">
-          <p>Enter Address</p>
+    <div className="py-5 px-[100px] bg-[--secondary] w-full flex">
+      <div className="bg-[--primary] flex w-full px-5 py-5 rounded-md shadow-sm gap-3 mb-10 flex-col">
+        <div className="">
+          <p className="font-medium text-gray-700 mb-2">Enter Address</p>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-5">
             <div className="mt-2">
               <p className="text-xs mb-1">Name:</p>
               <input
@@ -159,15 +159,12 @@ const Checkout = () => {
           </div>
         </div>
 
-        <div className="basis-2/4">
+        <div className="flex justify-end flex-col">
           {session ? (
-            <div className="">
-              <p className="text-xs font-medium my-2">
-                Click below to open the checkout page in current tab
-              </p>
+            <div className="flex items-center justify-end gap-5">
               <button
                 type="submit"
-                className="px-7 py-2 font-medium text-xs rounded-md bg-[--third] text-white mb-5"
+                className="px-7 py-2 font-medium text-xs rounded-md bg-[--third] text-white"
                 id="renderBtn"
                 onClick={doPayment}
               >
@@ -175,12 +172,14 @@ const Checkout = () => {
               </button>
             </div>
           ) : (
-            <button
-              className="px-7 py-2 font-medium text-xs rounded-md bg-[--third] text-white mb-5 mt-14"
-              onClick={handleSubmit}
-            >
-            Verify Order
-          </button>
+            <div className="flex justify-end">
+              <button
+                className="px-7 py-2 font-medium text-xs rounded-md bg-[--third] text-white"
+                onClick={handleSubmit}
+              >
+              Verify Order
+            </button>
+            </div>
           )}
         </div>
       </div>

@@ -61,8 +61,8 @@ const Product = () => {
   }, []);
 
   return (
-    <div className="px-[100px] min-h-[100vh] py-5 bg-[var(--secondary)]">
-      <div className="bg-[var(--primary)] gap-10 rounded-md px-5 py-5 flex">
+    <div className="px-[100px] py-5 bg-[var(--secondary)]">
+      <div className="bg-[var(--primary)] gap-10 rounded-md px-5 py-5 flex mb-10 shadow-sm">
         <div className="basis-2/5 flex flex-col items-center justify-center">
           <div className=" h-[300px] w-[300px]">
             <img
@@ -93,7 +93,7 @@ const Product = () => {
             {data?.sizes.map((item, i) => (
               <div
                 className={`w-[40px] h-[30px] cursor-pointer rounded-lg flex items-center justify-center bg-[--secondary]
-                  ${selectedSize == item && "border-[1px] border-black"}`}
+                  ${selectedSize == item && "border-[1px] border-gray-400"}`}
                 key={i}
                 onClick={() => setSelectedSize(item)}
               >
@@ -136,7 +136,8 @@ const Product = () => {
           </div>
 
           <button
-            className="mt-5 px-7 py-2 text-sm font-medium bg-[--third] text-white cursor-pointer rounded-md"
+            className="mt-5 px-7 py-2 text-sm font-medium bg-[--third] text-white cursor-pointer rounded-md
+            hover:border-[1px] hover:border-[--third] hover:bg-transparent hover:text-[--third]"
             onClick={() => handleCart()}
           >
             Add to cart

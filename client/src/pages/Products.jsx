@@ -1,25 +1,53 @@
-import React from "react";
-
-import img1 from "../assets/1.webp";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import apiRequest from "../lib/apiRequest";
 
 const Products = () => {
+  const [data, setData] = useState(null);
+
+  const getAllProducts = () => {
+    apiRequest
+      .get("/product")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
   return (
     <div className="min-h-[100vh] py-5 px-[100px] bg-[--secondary] w-full">
       <p className="font-medium">All Products</p>
 
-      <div className="mt-3 flex justify-between bg-[--primary] px-5 py-5 min-h-[100vh] rounded-md">
-        <div className="w-[200px] h-[250px] cursor-pointer">
-          <div className="rounded-md">
-            <img src={img1} alt="" className="w-full h-full rounded-xl" />
-          </div>
-          <h3 className="mt-2 font-medium text-sm">Acid Wash Tees</h3>
-          <p className="mt-1 text-xs">3 Sizes, 1 Color</p>
-          <h2 className="mt-2 text-lg font-semibold">₹788</h2>
+      <div className="mt-3 bg-[--primary] px-5 py-5 rounded-md shadow-sm grid grid-cols-5 gap-5">
+        {data?.map((item, i) => (
+          <div className="w-[200px] cursor-pointer" key={i}>
+            <Link to={`/product/${item._id}`}>
+              <div className="rounded-md w-full h-[200px]">
+                <img src={item?.image[0]} alt="" className="w-full h-full rounded-xl" />
+              </div>
+              <div className="">
+                <h3 className="mt-2 font-medium text-sm">{item?.name}</h3>
+                <p className="mt-1 text-xs">
+                  {item?.sizes.length} Sizes, {item?.colors.length} Color
+                </p>
+                <h2 className="mt-2 text-lg font-semibold">₹{item?.price}</h2>
+              </div>
+            </Link>
 
-          <button className="px-5 py-2 mt-2 text-sm font-medium text-[--third] border rounded-lg w-full">
-            Add to Cart
-          </button>
-        </div>
+            <button
+              className="px-5 py-2 mt-2 text-xs font-medium text-[--third] border rounded-lg w-full
+                      hover:bg-[--third] hover:text-white"
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

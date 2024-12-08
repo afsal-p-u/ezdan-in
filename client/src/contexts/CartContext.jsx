@@ -10,6 +10,7 @@ export const CartContextProvider = ({children}) => {
             data: [],
             cartValue: 0
         }
+
         if (cart == null || cart == "" || cart == undefined || cart == {} || cart == []) {
             item.data.push(value)
             item.cartValue += value.quantity * value.price
@@ -30,6 +31,7 @@ export const CartContextProvider = ({children}) => {
 
             item.cartValue += value.quantity * value.price
         }
+
         _setCart(item);
         localStorage.setItem("cart", JSON.stringify(item));
     }

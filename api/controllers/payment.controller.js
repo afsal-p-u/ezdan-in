@@ -1,8 +1,8 @@
 const { Cashfree } = require("cashfree-pg");
 
 const CreateOrder = (req, res) => {
-  Cashfree.XClientId = "3274674eab56471106d74d8c72764723";
-  Cashfree.XClientSecret = "3e8abb1ca6f367c8542b796efd884d49840287bf";
+  Cashfree.XClientId = process.env.XCLIENT_ID;
+  Cashfree.XClientSecret = process.env.XCLIENT_SECRET;
   Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
   var request = {

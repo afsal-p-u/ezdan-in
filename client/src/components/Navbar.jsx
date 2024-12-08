@@ -1,15 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { GoSearch } from "react-icons/go";
 import { AiOutlineHome } from "react-icons/ai";
 import { IoShirtOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useCartContext } from "../contexts/CartContext";
 
 const Navbar = () => {
   const { setRedirect } = useAuthContext();
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
+  const { cart } = useCartContext();
+  const location = useLocation();
 
   return (
     <div className="sticky top-0 left-0 shadow-sm">
@@ -33,15 +36,55 @@ const Navbar = () => {
           </div> */}
 
           <Link to="/" className="font-medium flex gap-2 items-center">
-            <AiOutlineHome className="text-lg text-[--third]" />
-            <p className="text-sm text-[--third]">Home</p>
+            <AiOutlineHome
+              className={`text-lg
+              ${location?.pathname == "/" ? "text-[--third]" : ""}`}
+            />
+            <p
+              className={`text-sm
+              ${location?.pathname == "/" ? "text-[--third]" : ""}`}
+            >
+              Home
+            </p>
           </Link>
           <Link to="/products" className="font-medium flex gap-2 items-center">
-            <IoShirtOutline className="text-lg" />
-            <p className="text-sm">Products</p>
+            <IoShirtOutline
+              className={`text-lg
+              ${
+                location?.pathname == "/products"
+                  ? "text-[--third]"
+                  : location.pathname.includes("/product/")
+                  ? "text-[--third]"
+                  : ""
+              }`}
+            />
+            <p
+              className={`text-sm
+              ${
+                location?.pathname == "/products"
+                  ? "text-[--third]"
+                  : location.pathname.includes("/product/")
+                  ? "text-[--third]"
+                  : ""
+              }`}
+            >
+              Products
+            </p>
           </Link>
-          <Link to="/cart">
-            <RiShoppingCartLine className="text-xl" />
+          <Link to="/cart" className="relative">
+            <RiShoppingCartLine 
+              className={`text-xl
+              ${location?.pathname == "/cart" ? 'text-[--third]' : 
+              location?.pathname.includes('/checkout') ? 'text-[--third]' : ''}`} 
+            />
+            {cart?.data?.length > 0 && (
+              <div
+                className={`absolute bg-[--third] text-white rounded-full px-1 py-1 text-xs w-[17px] h-[17px]
+                flex items-center justify-center font-medium top-[-7px] right-[-7px]`}
+              >
+                {cart?.data?.length}
+              </div>
+            )}
           </Link>
 
           {!user && (
