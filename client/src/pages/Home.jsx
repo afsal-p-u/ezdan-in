@@ -21,7 +21,7 @@ const Home = ({ data }) => {
               <div className="mt-3 grid grid-cols-5 gap-5">
                 {data?.map((item, i) => (
                   <div className="w-[200px] cursor-pointer" key={i}>
-                    <Link to={`/product/${item._id}`}>
+                    <Link to={`/product/${item._id}`} state={{item}}>
                       <div className="rounded-md w-full h-[200px]">
                         <img
                           src={item?.image[0]}

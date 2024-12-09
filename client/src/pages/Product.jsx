@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
 import apiRequest from "../lib/apiRequest";
 import { useCartContext } from "../contexts/CartContext";
 
 const Product = () => {
-  const [data, setData] = useState();
+  const location = useLocation();
+  const [data, setData] = useState(location?.state?.item);
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, _setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  console.log(location?.state?.item)
 
   const { cart, setCart, removeCartItem } = useCartContext();
 
@@ -30,21 +32,6 @@ const Product = () => {
     }
   };
 
-  const location = useLocation();
-
-  const getProduct = () => {
-    setLoading(true);
-    apiRequest
-      .get(`/product/${location?.pathname?.split("/")[2]}`)
-      .then((res) => {
-        setData(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const handleCart = () => {
     const { colors, sizes, ...rest } = data;
 
@@ -58,10 +45,6 @@ const Product = () => {
       });
     }
   };
-
-  useEffect(() => {
-    getProduct();
-  }, []);
 
   return (
     <div className="px-[100px] py-5 bg-[var(--secondary)]">

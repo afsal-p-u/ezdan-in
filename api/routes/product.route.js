@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const { addNewProduct, getAllProducts, getProduct } = require('../controllers/product.controller');
-const { verifyUser } = require('../middleware/auth.middleware');
+const { verifyUser, verifyAdmin } = require('../middleware/auth.middleware');
 
-router.post('/new', addNewProduct)
+router.post('/new', verifyAdmin, addNewProduct)
 router.get('/', getAllProducts)
 router.get('/:id', getProduct) 
 

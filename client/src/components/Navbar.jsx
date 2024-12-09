@@ -88,7 +88,7 @@ const Navbar = () => {
           </Link>
 
           {!user ? (
-            <div className="ml-10">
+            <div className="ml-5">
               <button
                 className="text-sm font-medium flex items-center gap-2"
                 onClick={() => setRedirect("sign-in")}
@@ -98,7 +98,7 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <div className="ml-10 w-[30px] h-[30px] bg-red-500 rounded-full cursor-pointer"></div>
+            <div className="ml-5 w-[30px] h-[30px] bg-[--third] rounded-full cursor-pointer"></div>
           )}
         </div>
       </div>
