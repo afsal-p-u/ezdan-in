@@ -9,6 +9,7 @@ const Product = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [quantity, _setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const { cart, setCart, removeCartItem } = useCartContext();
 
@@ -32,10 +33,12 @@ const Product = () => {
   const location = useLocation();
 
   const getProduct = () => {
+    setLoading(true);
     apiRequest
       .get(`/product/${location?.pathname?.split("/")[2]}`)
       .then((res) => {
         setData(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -62,21 +65,39 @@ const Product = () => {
 
   return (
     <div className="px-[100px] py-5 bg-[var(--secondary)]">
-      <div className="bg-[var(--primary)] gap-10 rounded-md px-5 py-5 flex mb-10 shadow-sm">
+      <div
+        className={`bg-[var(--primary)] gap-10 rounded-md px-5 py-5 flex mb-10 shadow-sm`}
+      >
         <div className="basis-2/5 flex flex-col items-center justify-center">
           <div className=" h-[300px] w-[300px]">
-            <img
-              src={data?.image[0]}
-              alt=""
-              className="w-full h-full object-contain cursor-pointer"
-            />
+            {loading ? (
+              <div className="w-full h-full"></div>
+            ) : (
+              <>
+                <img
+                  src={data?.image[0]}
+                  alt=""
+                  className="w-full h-full object-contain cursor-pointer"
+                />
+              </>
+            )}
           </div>
           <div className="mt-5 flex gap-5 justify-center">
-            {data?.image.map((item, i) => (
-              <div className="w-[80px] h-[80px] cursor-pointer" key={i}>
-                <img src={item} alt="" />
-              </div>
-            ))}
+            {loading ? (
+              <>
+                <div className="w-[80px] h-[80px] cursor-pointer">
+                  
+                </div>
+              </>
+            ) : (
+              <>
+                {data?.image.map((item, i) => (
+                  <div className="w-[80px] h-[80px] cursor-pointer" key={i}>
+                    <img src={item} alt="" />
+                  </div>
+                ))}
+              </>  
+            )}
           </div>
         </div>
 
@@ -93,7 +114,10 @@ const Product = () => {
             {data?.sizes.map((item, i) => (
               <div
                 className={`w-[40px] h-[30px] cursor-pointer rounded-lg flex items-center justify-center bg-[--secondary]
-                  ${selectedSize == item && "border-[1px] border-gray-400"}`}
+                              ${
+                                selectedSize == item &&
+                                "border-[1px] border-gray-400"
+                              }`}
                 key={i}
                 onClick={() => setSelectedSize(item)}
               >
@@ -108,7 +132,10 @@ const Product = () => {
               <div
                 key={i}
                 className={`w-[30px] h-[30px] rounded-full cursor-pointer
-                  ${selectedColor == item && "border-[2px] border-gray-700"}`}
+                              ${
+                                selectedColor == item &&
+                                "border-[2px] border-gray-700"
+                              }`}
                 style={{ background: item?.toLowerCase() }}
                 onClick={() => setSelectedColor(item)}
               ></div>
@@ -137,7 +164,7 @@ const Product = () => {
 
           <button
             className="mt-5 px-7 py-2 text-sm font-medium bg-[--third] text-white cursor-pointer rounded-md
-            hover:border-[1px] hover:border-[--third] hover:bg-transparent hover:text-[--third]"
+                        hover:border-[1px] hover:border-[--third] hover:bg-transparent hover:text-[--third]"
             onClick={() => handleCart()}
           >
             Add to cart

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import apiRequest from "../lib/apiRequest";
+import { IoMdClose } from "react-icons/io";
 
 const SignIn = () => {
   const [data, setData] = useState(null);
@@ -26,7 +27,12 @@ const SignIn = () => {
   return (
     <div className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
       <form className="px-10 py-5 bg-[--primary] border-[1px] shadow-sm rounded-md w-[430px]" onSubmit={handleSubmit}>
-        <h2 className="text-center font-semibold text-xl">SignIn</h2>
+        <div className="flex justify-between items-center">
+          <p></p>
+          <h2 className="text-center font-semibold text-xl">SignIn</h2>
+          <IoMdClose className="cursor-pointer" />
+        </div>
+          
         <div className="mt-2">
           <p className="text-xs text-gray-500 mb-1">Enter Email</p>
           <input
@@ -36,6 +42,7 @@ const SignIn = () => {
             placeholder="Enter email"
             className="px-5 py-2 text-sm rounded-md w-full border-[1px] outline-none "
             onChange={(e) => setDatas(e)}
+            autoComplete="off"
           />
         </div>
         <div className="mt-2">
@@ -47,6 +54,7 @@ const SignIn = () => {
             placeholder="Password"
             className="px-5 py-2 text-sm rounded-md w-full border-[1px] outline-none "
             onChange={(e) => setDatas(e)}
+            autoComplete="off"
           />
         </div>
         <div className="mt-2">

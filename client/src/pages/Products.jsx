@@ -1,24 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import apiRequest from "../lib/apiRequest";
 
-const Products = () => {
-  const [data, setData] = useState(null);
-
-  const getAllProducts = () => {
-    apiRequest
-      .get("/product")
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
+const Products = ({ data }) => {
 
   return (
     <div className="min-h-[100vh] py-5 px-[100px] bg-[--secondary] w-full">
@@ -42,7 +25,7 @@ const Products = () => {
 
             <button
               className="px-5 py-2 mt-2 text-xs font-medium text-[--third] border rounded-lg w-full
-                      hover:bg-[--third] hover:text-white"
+              hover:bg-[--third] hover:text-white"
             >
               Add to Cart
             </button>

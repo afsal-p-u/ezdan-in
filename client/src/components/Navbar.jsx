@@ -87,7 +87,7 @@ const Navbar = () => {
             )}
           </Link>
 
-          {!user && (
+          {!user ? (
             <div className="ml-10">
               <button
                 className="text-sm font-medium flex items-center gap-2"
@@ -97,6 +97,8 @@ const Navbar = () => {
                 <p>Login</p>
               </button>
             </div>
+          ) : (
+            <div className="ml-10 w-[30px] h-[30px] bg-red-500 rounded-full cursor-pointer"></div>
           )}
         </div>
       </div>

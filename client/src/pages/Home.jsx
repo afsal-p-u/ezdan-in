@@ -1,24 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import apiRequest from "../lib/apiRequest";
 
-const Home = () => {
-  const [data, setData] = useState(null);
-
-  const getAllProducts = () => {
-    apiRequest
-      .get("/product")
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
+const Home = ({ data }) => {
 
   return (
     <>

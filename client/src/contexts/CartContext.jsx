@@ -30,6 +30,7 @@ export const CartContextProvider = ({children}) => {
             }
 
             item.cartValue += value.quantity * value.price
+            exist = false
         }
 
         _setCart(item);
