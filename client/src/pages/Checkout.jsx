@@ -28,9 +28,9 @@ const Checkout = () => {
   let cashfree;
   var initializeSDK = async function () {
     cashfree = await load({
-      mode: import.meta.env.VITE_CASHFREE_MODE == "production" ? "production" : "sandbox",
+      // mode: import.meta.env.VITE_CASHFREE_MODE == "production" ? "production" : "sandbox",
       // mode: "sandbox",
-      // mode: "production"
+      mode: "production"
     });
   };
   initializeSDK();
