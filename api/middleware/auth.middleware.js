@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const verifyUser1 = (req, res, next) => {
+const verifyUser = (req, res, next) => {
     const token = req.cookies.token
 
     if (!token) {
@@ -16,12 +16,12 @@ const verifyUser1 = (req, res, next) => {
     })
 }
 
-const verifyUser = (req, res, next) => {
-    console.log(req)
-    console.log(req?.cookies)
-    console.log(req?.cookies?.token)
-    next()
-}
+// const verifyUser = (req, res, next) => {
+//     console.log(req)
+//     console.log(req?.cookies)
+//     console.log(req?.cookies?.token)
+//     next()
+// }
 
 const verifyAdmin = (req, res, next) => {
     const token = req.cookies.token

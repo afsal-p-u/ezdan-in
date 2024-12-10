@@ -62,7 +62,8 @@ const SignUp = async (req, res) => {
 
         return res.cookie("token", accessToken, {
             httpOnly: true,
-            secure: process.env.SECURE == "true" ? true : false,
+            // secure: process.env.SECURE == "true" ? true : false,
+            secure: true,
             maxAge: age
         }).status(200).json(accessToken)
 
