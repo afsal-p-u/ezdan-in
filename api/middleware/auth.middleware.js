@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-const verifyUser = (req, res, next) => {
+const verifyUser1 = (req, res, next) => {
     const token = req.cookies.token
 
     if (!token) {
@@ -14,6 +14,13 @@ const verifyUser = (req, res, next) => {
         req.userId = payload.id
         next()
     })
+}
+
+const verifyUser = (req, res, next) => {
+    console.log(req)
+    console.log(req?.cookies)
+    console.log(req?.cookies?.token)
+    next()
 }
 
 const verifyAdmin = (req, res, next) => {
