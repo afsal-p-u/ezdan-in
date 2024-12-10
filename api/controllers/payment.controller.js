@@ -4,11 +4,11 @@ const CreateOrder = (req, res) => {
   Cashfree.XClientId = process.env.XCLIENT_ID;
   Cashfree.XClientSecret = process.env.XCLIENT_SECRET;
 
-  // if (process.env.CASHFREE_TYPE == "production") {
+  if (process.env.CASHFREE_TYPE == "production") {
     Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
-  // } else {
-    // Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
-  // }
+  } else {
+    Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+  }
 
   const date = new Date();
   const expiryDate = new Date(date); 
@@ -17,7 +17,7 @@ const CreateOrder = (req, res) => {
   var request = {
     order_amount: req.body.amount,
     order_currency: "INR",
-    order_id: `ezdan_${req.body.name + expiryDate}`,
+    order_id: `ezdan_${req.body.name + expiryDate.getDate()}`,
     customer_details: {
       customer_id: req.body.name+req.body.phone,
       customer_phone: req.body.phone,
