@@ -4,11 +4,11 @@ const CreateOrder = (req, res) => {
   Cashfree.XClientId = process.env.XCLIENT_ID;
   Cashfree.XClientSecret = process.env.XCLIENT_SECRET;
 
-  // if (process.env.CASHFREE_TYPE == "production") {
+  if (process.env.CASHFREE_TYPE == "production") {
     Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
-  // } else {
-    // Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
-  // }
+  } else {
+    Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+  }
 
   const date = new Date();
   const expiryDate = new Date(date); 
