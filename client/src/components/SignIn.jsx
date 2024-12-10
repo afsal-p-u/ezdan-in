@@ -30,7 +30,7 @@ const SignIn = () => {
         <div className="flex justify-between items-center">
           <p></p>
           <h2 className="text-center font-semibold text-xl">SignIn</h2>
-          <IoMdClose className="cursor-pointer" />
+          <IoMdClose className="cursor-pointer" onClick={() => setRedirect('')} />
         </div>
           
         <div className="mt-2">

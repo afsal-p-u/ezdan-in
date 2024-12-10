@@ -11,8 +11,6 @@ const Product = () => {
   const [quantity, _setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  console.log(location?.state?.item)
-
   const { cart, setCart, removeCartItem } = useCartContext();
 
   const setQuantity = (value) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { GoSearch } from "react-icons/go";
@@ -7,15 +7,25 @@ import { IoShirtOutline } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useCartContext } from "../contexts/CartContext";
+import apiRequest from "../lib/apiRequest";
 
 const Navbar = () => {
   const { setRedirect } = useAuthContext();
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
   const { cart } = useCartContext();
   const location = useLocation();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleLogout = () => {
+    apiRequest.post('/auth/sign-out', {}).then((res) => {
+      setUser(null)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
   return (
-    <div className="sticky top-0 left-0 shadow-sm">
+    <div className="sticky top-0 left-0 shadow-sm bg-[--primary] z-[100]">
       <div className="px-[100px] py-5 bg-[var(--primary)] flex justify-between">
         <Link to="/">
           <h3 className="font-semibold text-xl">
@@ -72,10 +82,15 @@ const Navbar = () => {
             </p>
           </Link>
           <Link to="/cart" className="relative">
-            <RiShoppingCartLine 
+            <RiShoppingCartLine
               className={`text-xl
-              ${location?.pathname == "/cart" ? 'text-[--third]' : 
-              location?.pathname.includes('/checkout') ? 'text-[--third]' : ''}`} 
+              ${
+                location?.pathname == "/cart"
+                  ? "text-[--third]"
+                  : location?.pathname.includes("/checkout")
+                  ? "text-[--third]"
+                  : ""
+              }`}
             />
             {cart?.data?.length > 0 && (
               <div
@@ -98,7 +113,23 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <div className="ml-5 w-[30px] h-[30px] bg-[--third] rounded-full cursor-pointer"></div>
+            <div className="relative">
+              <div
+                className="ml-5 w-[30px] h-[30px] bg-[--third] rounded-full cursor-pointer"
+                onClick={() => setShowMenu((value) => !value)}
+              ></div>
+
+              {showMenu && (
+                <div className="absolute top-[35px] left-[-40px] px-7 py-3 border-[1px] shadow-sm border-gray-100 bg-[--primary]">
+                  <div className="flex gap-2 flex-col">
+                    <button className="text-xs cursor-pointer">Orders</button>
+                    <button className="text-xs cursor-pointer text-red-500" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useCartContext } from "../contexts/CartContext";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Cart = () => {
   const { cart, setCart, removeCartItem } = useCartContext();
+  const { user, setRedirect } = useAuthContext();
+  const navigate = useNavigate()
   const shippingCharge = 40;
   const discount = 0;
 
@@ -13,6 +16,14 @@ const Cart = () => {
   const handleRemove = (id) => {
     removeCartItem(id);
   };
+
+  const checkoutControl = () => {
+    if (user) {
+      navigate("/checkout")
+    } else {
+      setRedirect('sign-in')
+    }
+  }
 
   return (
     <div className="py-5 px-[100px] bg-[--secondary] w-full">
@@ -91,11 +102,14 @@ const Cart = () => {
                 </div>
 
                 <div className="">
-                  <Link to="/checkout">
-                    <button className="px-5 py-2 rounded-md  mt-2 text-white border-md bg-blue-500 font-medium">
+                  {/* <Link to="/checkout"> */}
+                    <button 
+                      className="px-5 py-2 rounded-md  mt-2 text-white border-md bg-blue-500 font-medium"
+                      onClick={checkoutControl}
+                    >
                       Checkout
                     </button>
-                  </Link>
+                  {/* </Link> */}
                 </div>
               </div>
             </div>

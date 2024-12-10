@@ -16,7 +16,7 @@ const Checkout = () => {
     e.preventDefault();
 
     apiRequest
-      .post("/payment/create", { ...data, amount: 150.0 })
+      .post("/payment/create", { ...data, amount: 1.0 })
       .then((res) => {
         setSession(res.data.payment_session_id);
       })
@@ -28,7 +28,8 @@ const Checkout = () => {
   let cashfree;
   var initializeSDK = async function () {
     cashfree = await load({
-      mode: "sandbox",
+      mode: import.meta.env.VITE_CASHFREE_MODE == "production" ? "production" : "sandbox",
+      // mode: "sandbox",
     });
   };
   initializeSDK();

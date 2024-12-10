@@ -3,12 +3,21 @@ const { Cashfree } = require("cashfree-pg");
 const CreateOrder = (req, res) => {
   Cashfree.XClientId = process.env.XCLIENT_ID;
   Cashfree.XClientSecret = process.env.XCLIENT_SECRET;
-  Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+
+  if (process.env.CASHFREE_TYPE == "production") {
+    Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
+  } else {
+    Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+  }
+
+  const date = new Date();
+  const expiryDate = new Date(date); 
+  expiryDate.setDate(expiryDate.getDate() + 1);
 
   var request = {
     order_amount: req.body.amount,
     order_currency: "INR",
-    order_id: `ezdan_${req.body.name + req.body.phone}`,
+    order_id: `ezdan_${req.body.name + date}`,
     customer_details: {
       customer_id: req.body.name+req.body.phone,
       customer_phone: req.body.phone,
@@ -17,13 +26,14 @@ const CreateOrder = (req, res) => {
     },
     order_meta: {
       return_url:
-        "https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}",
+        // "https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id={order_id}",
+        "https://ezdan.store/order",
       notify_url:
         "https://www.cashfree.com/devstudio/preview/pg/webhooks/61559637",
       payment_methods: "cc,dc,upi",
     },
-    order_expiry_time: "2024-12-09T11:16:45.805Z",
-    order_note: "Sample Order Note",
+    order_expiry_time: expiryDate,
+    order_note: "Ezdan Orders",
     order_tags: {
       name: "Developer",
       company: "Cashfree",
