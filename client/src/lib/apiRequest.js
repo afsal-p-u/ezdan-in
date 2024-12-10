@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiRequest = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
-  withCredentials: import.meta.env.VITE_WITHCREDENTIALS == "false" ? false : true, 
+  withCredentials: import.meta.env.VITE_WITHCREDENTIALS == "true" ? true : false, 
 });
 
 export default apiRequest;
