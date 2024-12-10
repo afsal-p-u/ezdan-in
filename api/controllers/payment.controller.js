@@ -17,7 +17,7 @@ const CreateOrder = (req, res) => {
   var request = {
     order_amount: req.body.amount,
     order_currency: "INR",
-    order_id: `ezdan_${req.body.name + date}`,
+    order_id: `ezdan_${req.body.name + expiryDate}`,
     customer_details: {
       customer_id: req.body.name+req.body.phone,
       customer_phone: req.body.phone,
