@@ -1,13 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Cart, Checkout, Home, OrderConfirmation, Product, Products, TermsAndConditions } from "./pages";
-import { Footer, Navbar, SignIn, SignUp } from "./components";
+import { Footer, MobileMenu, Navbar, SignIn, SignUp } from "./components";
 import { useAuthContext } from "./contexts/AuthContext";
 import { useEffect, useState } from "react";
 import apiRequest from "./lib/apiRequest";
 
 function App() {
   const { user, redirect, setRedirect } = useAuthContext();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
 
   const getAllProducts = () => {
     apiRequest
@@ -38,6 +38,7 @@ function App() {
         <Route path="/termsandconditions" element={<TermsAndConditions />} />
       </Routes>
       <Footer />
+      <MobileMenu />
 
       {redirect == "sign-in" ? (
         <SignIn />

@@ -26,7 +26,10 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 left-0 shadow-sm bg-[--primary] z-[100]">
-      <div className="px-[100px] py-5 bg-[var(--primary)] flex justify-between">
+      <div 
+        className="px-[100px] max-lg:px-[50px] max-md:px-[20px] py-5 
+        bg-[var(--primary)] flex justify-between"
+      >
         <Link to="/">
           <h3 className="font-semibold text-xl">
             EZD<span className="text-[--third]">AN</span>
@@ -45,7 +48,7 @@ const Navbar = () => {
             />
           </div> */}
 
-          <Link to="/" className="font-medium flex gap-2 items-center">
+          <Link to="/" className="font-medium flex gap-2 items-center max-sm:hidden">
             <AiOutlineHome
               className={`text-lg
               ${location?.pathname == "/" ? "text-[--third]" : ""}`}
@@ -57,7 +60,7 @@ const Navbar = () => {
               Home
             </p>
           </Link>
-          <Link to="/products" className="font-medium flex gap-2 items-center">
+          <Link to="/products" className="font-medium flex gap-2 items-center max-sm:hidden">
             <IoShirtOutline
               className={`text-lg
               ${
@@ -81,7 +84,7 @@ const Navbar = () => {
               Products
             </p>
           </Link>
-          <Link to="/cart" className="relative">
+          <Link to="/cart" className="relative max-sm:hidden">
             <RiShoppingCartLine
               className={`text-xl
               ${
