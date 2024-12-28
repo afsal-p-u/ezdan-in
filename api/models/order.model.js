@@ -2,22 +2,22 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    address: { type: String, required: true },
+    otherInfo: { type: String },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    pincode: { type: Number, required: true },
     phone: { type: Number, required: true },
     email: { type: String, required: true },
-    pincode: { type: Number, required: true },
-    state: { type: String, required: true },
-    district: { type: String, required: true },
-    address1: { type: String, required: true },
-    address2: { type: String, required: true },
-    address3: { type: String, required: true },
     amount: { type: String, required: true },
     status: {
       type: String,
       enum: ["Delivered", "Shipped", "Order Confirmed", "Payment Pending", "Order Failed"],
-      default: "Order Confirmed",
+      default: "Payment Pending",
     },
-    location: { type: String, required: true }
+    orderedItems: { type: Array, default: [] }
   },
   { timestamps: true }
 );

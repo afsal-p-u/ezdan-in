@@ -39,6 +39,7 @@ const SignUp = () => {
             type="email"
             name="email"
             placeholder="Enter email"
+            id=""
             className="px-5 py-2 text-sm rounded-md w-full border-[1px] outline-none "
             required
             onChange={(e) => setDatas(e)}
@@ -50,6 +51,7 @@ const SignUp = () => {
           <input
             type="number"
             name="phone"
+            id=""
             placeholder="Phone number"
             className="px-5 py-2 text-sm rounded-md w-full border-[1px] outline-none "
             required
@@ -63,6 +65,7 @@ const SignUp = () => {
             type="password"
             name="password"
             placeholder="Password"
+            id=""
             className="px-5 py-2 text-sm rounded-md w-full border-[1px] outline-none "
             required
             onChange={(e) => setDatas(e)}
